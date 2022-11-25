@@ -1,0 +1,5 @@
+name: 'my_module1'
+description: 'my_module1 for the create/edit form'
+package: UTI Custom
+type: module
+core_version_requirement: ^8 || ^9

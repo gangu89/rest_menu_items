@@ -1,0 +1,17 @@
+ajaxData_load_ajax_data:
+  path: '/load_ajax_data'
+  defaults:
+    _title: 'Post JSON to be used for PostPlanOptions data'
+    options:
+      query:
+        type: ""
+    _controller: '\Drupal\ajaxData\Controller\AjaxDataController:load_ajax_data'
+  requirements:    
+    _access: 'TRUE'
+load_ajax_data_form_submit:
+  path: 'load_ajax_data_form_submit'
+  defaults:
+    _form:  '\Drupal\ajaxData\Form\AjaxSubmitDemo'
+    _title: 'Ajax Submit Form'
+  requirements:
+    _permission: 'access content'

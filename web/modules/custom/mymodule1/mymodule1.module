@@ -1,0 +1,205 @@
+<?php
+
+
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\system\Entity\Menu;
+use Drupal\Core\Config\Entity;
+use Drupal\node\Entity\Node;
+use Drupal\Component\Utility\Html;
+use Drupal\node\Entity\NodeType;
+use Drupal\node\NodeInterface;
+use Drupal\node\NodeTypeInterface;
+/**
+ * override hook_form_alter().
+ */
+function mymodule1_form_alter(&$form, FormStateInterface $form_state, $form_id)
+{
+  //  dsm($form_id);
+  if ($form_id === 'menu_add_form' || $form_id === 'menu_edit_form') {
+    // get menu configuration entity
+    $menu = $form_state->getFormObject()->getEntity();
+
+    // add custom field textfield
+    $form['my_custom_field'] = array(
+      '#type' => 'textfield',
+      '#title' => t('My Custom field'),
+      '#description' => t('This is custom extra field'),
+      '#default_value' => $menu->getThirdPartySetting('mymodule1', 'my_custom_field'),
+      '#weight' => 1
+    );
+
+    // add custom field text_format
+    $form['my_custom_description'] = array(
+      '#type' => 'text_format',
+      '#title' => t('Description'),
+      '#default_value' => $menu->getThirdPartySetting('mymodule1', 'my_custom_description'),
+      '#format' => 'full_html',
+      '#weight' => 2
+    );
+        // add custom field text_format
+        $form['my_custom_dropdown'] = array(
+            '#type' => 'select',
+            '#title' => t('Description'),
+            '#default_value' => $menu->getThirdPartySetting('mymodule1', 'my_custom_dropdown'),
+            '#options' => array(t('--- SELECT ---'), t('10"'), t('12"'), t('16"')),
+            '#weight' => 2
+        );
+    // change links field weight to become after my fields
+    if (isset($form['links'])) {
+      $form['links']['#weight'] = 3;
+    }
+
+    // Entity builder for the menu configuration entity.
+    $form['#entity_builders'][] = '_mymodule_form_menu_add_form_builder';
+  }
+  if ($form_id === 'node_article_form' || $form_id === 'node_article_edit_form') {
+    
+    // get menu configuration entity
+    // $article = $form_state->getFormObject()->getEntity();
+    $entity = $form_state->getFormObject()->getEntity();
+    // dsm($entity);
+   
+        // add custom field text_format
+        $form['my_custom_dropdown1'] = array(
+            '#type' => 'select',
+            '#title' => t('Description'),
+      //     '#default_value' => $entity->getThirdPartySetting('mymodule1', 'my_custom_dropdown1'),
+            '#options' => array(t('--- SELECT ---'), t('10"'), t('12"'), t('16"')),
+            '#weight' => 2
+        );
+    // change links field weight to become after my fields
+    if (isset($form['links'])) {
+      $form['links']['#weight'] = 3;
+    }
+
+    // Entity builder for the menu configuration entity.
+    $form['#entity_builders'][] = '_mymodule_form_article_add_form_builder';
+  }
+}
+
+
+/**
+ * @param $entity_type
+ * @param Menu $menu
+ * @param $form
+ * @param FormStateInterface $form_state
+ */
+function _mymodule_form_menu_add_form_builder($entity_type, Menu $menu, &$form, FormStateInterface $form_state)
+{
+  if ($form_state->getValue('my_custom_field')) {
+    // save my_text_field value in Third Party Setting
+    $menu->setThirdPartySetting('mymodule1', 'my_custom_field', $form_state->getValue('my_custom_field'));
+  } else {
+    // remove my_text_field value from Third Party Setting
+    $menu->unsetThirdPartySetting('mymodule1', 'my_custom_field');
+  }
+
+  if ($form_state->getValue('my_custom_description')) {
+    // save my_custom_description value in Third Party Setting
+    $menu->setThirdPartySetting('mymodule1', 'my_custom_description', $form_state->getValue('my_custom_description')['value']);
+  } else {
+    // remove my_custom_description value from Third Party Setting
+    $menu->unsetThirdPartySetting('mymodule1', 'my_custom_description');
+  }
+  if ($form_state->getValue('my_custom_dropdown')) {
+    // save my_custom_dropdown value in Third Party Setting
+    $menu->setThirdPartySetting('mymodule1', 'my_custom_dropdown', $form_state->getValue('my_custom_dropdown')['value']);
+  } else {
+    // remove my_custom_dropdown value from Third Party Setting
+    $menu->unsetThirdPartySetting('mymodule1', 'my_custom_dropdown');
+  }
+}
+
+
+/**
+ * @param $entity_type
+ * @param Node $node
+ * @param $form
+ * @param FormStateInterface $form_state
+ */
+function _mymodule_form_article_add_form_builder($entity_type, Menu $menu, &$form, FormStateInterface $form_state)
+{
+ dsm($form_state->getValue('my_custom_dropdown1'));
+  if ($form_state->getValue('my_custom_dropdown1')) {
+    // save my_custom_dropdown value in Third Party Setting
+   $Menu->setThirdPartySetting('mymodule1', 'my_custom_dropdown1', $form_state->getValue('my_custom_dropdown1')['value']);
+  } else {
+    // remove my_custom_dropdown value from Third Party Setting
+    $Menu->unsetThirdPartySetting('mymodule1', 'my_custom_dropdown1');
+  }
+}
+
+/**
+ * Implements hook_field_create_definitions().
+ */
+function mymodule1_field_create_definitions_alter(array &$definitions) {
+  // Define your fields here by entity type.
+  $definitions['node'] = [
+    'demo_field' => [
+      'name'    => 'demo_field',
+      'label'   => 'This is my field',
+      'type'    => 'string',
+      'force'   => FALSE, // No update once field exists.
+      'bundles' => [
+        'page' => [],
+        'article' => [],
+      ],
+    ],
+  ];
+}
+
+/**
+ * @param $form
+ * @param FormStateInterface $form_state
+ */
+function mymodule1_form_node_type_form_alter(&$form, FormStateInterface $form_state)
+{
+
+  // Load the current node type configuration entity.
+  $node_type = $form_state->getFormObject()->getEntity();
+  //dsm($node_type);
+  if ($node_type === 'node_article_form' || $node_type === 'node_article_edit_form') {
+  // $form['custom_fields'] = array(
+  //   '#type' => 'details',
+  //   '#title' => t('Custom Fields'),
+  //   '#group' => 'additional_settings',
+  // );
+
+  // $form['custom_fields']['custom_body_classes'] = array(
+  //   '#type' => 'textfield',
+  //   '#title' => t('Classes CSS'),
+  //   '#description' => t('Add classes to body tag.'),
+  //   '#default_value' => $node_type->getThirdPartySetting('mymodule', 'custom_body_classes'),
+  // );
+  $form['my_custom_dropdown2'] = array(
+    '#type' => 'select',
+    '#title' => t('Description'),
+    '#default_value' => $node_type->getThirdPartySetting('mymodule1', 'my_custom_dropdown2'),
+    '#options' => array(t('--- SELECT ---'), t('10"'), t('12"'), t('16"')),
+    '#weight' => 2
+);
+  $form['#entity_builders'][] = '_mymodule_form_node_type_form_builder';
+}
+}
+
+/**
+ * @param $entity_type
+ * @param NodeTypeInterface $type
+ * @param $form
+ * @param FormStateInterface $form_state
+ */
+function _mymodule_form_node_type_form_builder($entity_type, NodeTypeInterface $type, &$form, FormStateInterface $form_state)
+{
+  // if ($form_state->getValue('custom_body_classes')) {
+  //   $type->setThirdPartySetting('mymodule1', 'custom_body_classes', $form_state->getValue('custom_body_classes'));
+  // } else {
+  //   $type->unsetThirdPartySetting('mymodule1', 'custom_body_classes');
+  // }
+  if ($form_state->getValue('my_custom_dropdown2')) {
+    // save my_custom_dropdown value in Third Party Setting
+   $type->setThirdPartySetting('mymodule1', 'my_custom_dropdown2', $form_state->getValue('my_custom_dropdown2')['value']);
+  } else {
+    // remove my_custom_dropdown value from Third Party Setting
+    $type->unsetThirdPartySetting('mymodule1', 'my_custom_dropdown2');
+  }
+}

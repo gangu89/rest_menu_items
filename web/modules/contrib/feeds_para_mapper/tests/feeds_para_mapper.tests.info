@@ -1,0 +1,47 @@
+[FeedsParaMapperSingleValueTestCase]
+name = Single Value Importing Test
+description = Ensures that importing a single value to a Paragraphs field works correctly.
+group = Paragraphs Mapper
+file = importing.test
+
+[FeedsParaMapperNestedImportTestCase]
+name = Nested Importing Test
+description = Ensures that importing to a nested Paragraphs field works correctly.
+group = Paragraphs Mapper
+file = importing.test
+
+[FeedsParaMapperMultiValuedImportingTestCase]
+name = Multi-valued Importing Test
+description = Ensures that importing to a multi-valued Paragraphs field works correctly.
+group = Paragraphs Mapper
+file = importing.test
+
+[FeedsParaMapperUpdatingTestCase]
+name = Updating Test
+description = Ensures that updating the values of Paragraphs fields works correctly.
+group = Paragraphs Mapper
+file = importing.test
+
+[FeedsParaMapperMappingTestCase]
+name = Single Value Mapping Test
+description = Ensures that mapping a single value to a Paragraphs field works correctly.
+group = Paragraphs Mapper
+file = mapping.test
+
+[FeedsParaMapperNestedMappingTestCase]
+name = Nested Mapping Test
+description = Ensures that mapping to a nested Paragraphs field works correctly.
+group = Paragraphs Mapper
+file = mapping.test
+
+[FeedsParaMapperMultiValuedMappingTestCase]
+name = Multi-valued Mapping Test
+description = Ensures that mapping to a multi-valued Paragraphs field works correctly.
+group = Paragraphs Mapper
+file = mapping.test
+
+
+; Added by Backdrop CMS packaging script on 2021-11-10
+project = feeds_para_mapper
+version = 1.x-1.0.0-beta2
+timestamp = 1636569316

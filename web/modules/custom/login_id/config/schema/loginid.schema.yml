@@ -1,0 +1,8 @@
+# Schema for the configuration files of the MyCustomFields module.
+field.value.login_id:
+ type: mapping
+ label: 'Default value'
+ mapping:
+ value:
+ type: string
+ label: 'LoginId'

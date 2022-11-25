@@ -1,0 +1,14 @@
+<?php
+
+/**
+ * @param $fields
+ * @param EntityTypeInterface $entity_type
+ *
+ * Makes sure the name field of a question entity can be 255 characters
+ */
+function mymodule1_entity_base_field_info_alter(&$fields, EntityTypeInterface $entity_type) {
+  if ($entity_type->id() == 'question' && !empty($fields['name'])) {
+    $fields['name']->setSetting('max_length', 255);
+  }
+}
+

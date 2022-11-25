@@ -1,0 +1,11 @@
+name: foobar
+description: With this module I will migrate a csv file.
+type: module
+core_version_requirement: ^9 || ^10
+package: Migration
+dependencies:
+  - migrate
+  - migrate_plus
+  - migrate_source_csv
+  - migrate_tools
+  - node

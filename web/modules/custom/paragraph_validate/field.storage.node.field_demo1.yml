@@ -1,0 +1,23 @@
+uuid: 7687d9ca-f8de-4e0f-a0d4-755b17a07363
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_demo1
+    - node.type.students
+  module:
+    - options
+id: node.students.field_demo1
+field_name: field_demo1
+entity_type: node
+bundle: students
+label: Demo1
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  allowed_values: {  }
+  allowed_values_function: { }
+field_type: list_string

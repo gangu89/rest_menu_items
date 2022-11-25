@@ -1,0 +1,38 @@
+system.menu.*.third_party.mymodule1:
+  type: mapping
+  label: 'My custom fields'
+  mapping:
+    my_custom_field:
+      type: text
+      label: 'My Custom Field'
+    my_custom_description:
+      type: text_format
+      label: 'My Custom Description'
+    my_custom_dropdown:
+      type: list_string
+      label: 'My Custom dropdown'
+node.type.*.third_party.mymodule1:
+  type: mapping
+  label: 'Custom Fields'
+  mapping:
+    custom_body_classes:
+      type: text
+      label: 'Add classes to body tag'
+    my_custom_dropdown2:
+      type: list_string
+      label: 'My Custom dropdown2'
+field.value.my_custom_dropdown1:
+  type: mapping
+  label: 'My custom fields new'
+  mapping:
+    my_custom_dropdown1:
+      type: list_string
+      label: 'My Custom dropdown1'
+# Schema for the configuration files of the MyCustomFields module.
+field.value.my_custom_field:
+ type: mapping
+ label: 'Default value'
+ mapping:
+ value:
+ type: string
+ label: 'MyCustomFields'

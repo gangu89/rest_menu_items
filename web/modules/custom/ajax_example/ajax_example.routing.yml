@@ -1,0 +1,11 @@
+PostPlanOptions_data:
+  path: '/ajax_example'
+  defaults:
+    _title: 'Post JSON to be used for PostPlanOptions data'
+    _form: '\Drupal\ajax_example\Form\AjaxExampleForm'
+    options:
+      query:
+        type: ""
+    # _controller: '\Drupal\lucky\UtichooseDataJsonController::PostPlanOptions'
+  requirements:    
+    _access: 'TRUE' 

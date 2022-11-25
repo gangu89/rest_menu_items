@@ -1,0 +1,80 @@
+<?php
+
+/**
+ * Implements hook_menu().
+ */
+function example_menu() {
+  $items['example'] = array(
+    'type' => MENU_CALLBACK,
+    'title' => 'Check Ajax',
+    'page callback' => DRUPAL_GET_FORM,
+    'page arguments' => array('example_form'),
+    'access arguments' => array('example form for ajax event'),
+  );
+  $items['js/example/somefunction'] = array(
+    'type' => MENU_CALLBACK,
+    'title' => 'Check Ajax',
+    'page callback' => DRUPAL_GET_FORM,
+    'page arguments' => array('example_somefunction'),
+    'access arguments' => array('user ajax js permission'),
+  );
+  return $items;
+}
+
+/**
+ * Implements hook_permission().
+ */
+
+function example_permission() {
+  return array(
+    'example form for ajax event' =>  array(
+      'title' => 'Example form for ajax event',
+    ),
+    'user ajax js permission' =>  array(
+      'title' => 'User Ajax JS Permissions',
+    ),
+  );
+}
+
+/**
+ * Implements hook_form().
+ */
+function example_form($form, &$form_state) {
+  drupal_add_js(drupal_get_path('module','example').'/example.js');
+  $form['username'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Ajax Event'),
+      '#prefix' => '<span id="username_response"></span>',
+  );
+
+  return $form;
+}
+
+/**
+ * Implements example_somefunction().
+ * Ajax Event Callback
+ */
+function example_somefunction() {
+  $name = arg(3);
+  $result = db_query("select * from {users} where name = :name", array(':name' => $name))->fetchAssoc();
+  if($result != '') {
+    print "The Username " .$result['name'] . " is already taken";
+  }
+  else{
+    print "";
+  }
+  exit;
+}
+
+/**
+ * Implements hook_js().
+ */
+function example_js() {
+  return array(
+    'somefunction' => array(
+      'callback' => 'example_somefunction',
+      'bootstrap'    => DRUPAL_BOOTSTRAP_CONSTANT,
+      'access callback'  => 'example_somefunction',
+    ),
+  );
+}

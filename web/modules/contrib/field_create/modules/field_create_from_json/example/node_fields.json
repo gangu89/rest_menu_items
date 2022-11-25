@@ -1,0 +1,28 @@
+{
+  "myfield": {
+    "name": "myfield",
+    "label": "This is my field",
+    "type": "string",
+    "force": true,
+    "bundles": {
+      "page": {
+        "label": "This field is wonderful",
+        "displays": {
+          "form": {
+            "default": {
+              "region": "content"
+            }
+          },
+          "view": {
+            "default": {
+              "label": "above"
+            },
+            "teaser": {
+              "label": "hidden"
+            }
+          }
+        }
+      }
+    }
+  }
+}

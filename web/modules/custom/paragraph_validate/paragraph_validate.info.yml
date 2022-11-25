@@ -1,0 +1,5 @@
+name: 'Paragraph Validate'
+description: 'Validation for the Paragraph create/edit form'
+package: UTI Custom
+type: module
+core_version_requirement: ^8 || ^9

@@ -1,0 +1,91 @@
+###########################################################
+###########################################################
+# Example file.
+#
+# Copy it into your "/config/sync" folder or into your
+# own module's config folder (e.g. /config/install).
+#
+# Run `drush field_create`
+#
+# Still have questions? Fill an issue on d.o
+# https://www.drupal.org/project/issues/field_create
+###########################################################
+#
+# Custom settings to apply on the whole list of fields.
+_settings:
+  # Use a custom prefix (e.g. default to Field UI's setting).
+  #
+  # Warning: Existing fields won't be deleted if prefix changes.
+  #          New fields are created instead.
+  #          You would need to delete previous fields first.
+  field_prefix: mymodule_
+  # Mark all fields as required.
+  # This can be overriden per bundle.
+  field_required: true
+###########################################################
+# Create a simply text field attach to Pages and Articles.
+###########################################################
+mytextfield:
+  # Default settings.
+  name: mytextfield
+  label: This is my field
+  type: string
+  force: true
+  required: false
+  bundles:
+    page:
+      label: This is a custom label for Pages
+      displays:
+        form:
+          default:
+            region: content
+        view:
+          default:
+            label: above
+          teaser:
+            label: hidden
+    article:
+      label: This is a custom label for Articles
+      # Required on article only.
+      required: true
+      displays:
+        view:
+          default:
+            region: hidden
+###########################################################
+# Create an entity reference field.
+###########################################################
+myreffield:
+  name: myreffield
+  label: A reference field
+  type: entity_reference
+  force: true
+  cardinality: -1
+  settings:
+    handler: "default:node"
+    handler_settings:
+      target_bundles:
+        article: article
+      sort:
+        field: _none
+      auto_create: true
+  bundles:
+    page:
+      label: Articles
+      settings:
+        handler_settings:
+          target_bundles:
+            article: article
+          sort:
+            field: nid
+          auto_create: true
+    article:
+      label: Pages
+      settings:
+        handler_settings:
+          target_bundles:
+            page: page
+          sort:
+            field: name
+            direction: DESC
+          auto_create: false

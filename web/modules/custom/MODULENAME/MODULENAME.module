@@ -1,0 +1,19 @@
+<?php
+
+// namespace Drupal\admin_email\Entity;
+// namespace Drupal\user\Entity\User;
+
+// use Drupal\Core\Entity\EntityTypeInterface;
+// use Drupal\Core\Field\BaseFieldDefinition;
+// use Drupal\user\Entity;
+// use Drupal\user\Entity\User;
+// use Drupal\Core\Entity\EntityTypeManagerInterface;
+// use Drupal\Core\Entity\ContentEntityType;
+
+// /**
+//  * Implements hook_entity_type_alter().
+//  */
+// function admin_email_entity_type_alter(array &$entity_types) {
+//   $entity_types['user']->setClass(AdminEmailUser::class);
+// }
+

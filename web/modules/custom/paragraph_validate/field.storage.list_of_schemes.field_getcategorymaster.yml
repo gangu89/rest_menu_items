@@ -1,0 +1,7 @@
+field_name: field_getcategorymaster
+entity_type: node
+type: list_string
+settings:
+  allowed_values: {  }
+  allowed_values_function: { }
+module: options

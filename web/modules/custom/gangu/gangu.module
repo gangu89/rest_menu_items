@@ -1,0 +1,98 @@
+<?php
+use Drupal\Core\Field\BaseFieldDefinition;
+
+namespace Drupal\login_id\Entity;
+
+use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\Core\Field\BaseFieldDefinition;
+use Drupal\user\Entity\User;
+
+use \Drupal\gangu\Entity\Brand;
+use \Drupal\gangu\Entity\Article;
+
+function gangu_entity_bundle_info() {
+  $bundles['my_entity']['gangu']['class'] = Brand::class;
+  return $bundles;
+}
+
+
+
+function gangu_entity_bundle_info_alter(array &$bundles) {
+  $bundles['node']['article']['class'] = Article::class;
+}
+
+/**
+ * Implements hook_entity_base_field_info().
+ */
+// function gangu_entity_base_field_info(EntityTypeInterface $entity_type) {
+//   $fields = [];
+
+//   if ($entity_type->id() === 'node') {
+//     $fields['publish_state'] = BaseFieldDefinition::create('list_string')
+//       ->setSetting('allowed_values_function', 'example_allowed_values')
+//       ->setLabel(t('Publish state'))
+//       ->setDisplayOptions('view', [
+//         'label' => 'hidden',
+//         'region' => 'hidden',
+//         'weight' => -5,
+//       ])
+//       ->setDisplayOptions('form', [
+//         'type' => 'scheduler_moderation',
+//         'weight' => 30,
+//       ])
+//       ->setDisplayConfigurable('form', TRUE)
+//       ->setDisplayConfigurable('view', FALSE)
+//       ->setTranslatable(TRUE)
+//       ->setRevisionable(TRUE)
+//       ->addConstraint('SchedulerPublishState');
+//       }
+//     }
+
+//     /**
+//  * Implements hook_entity_field_access().
+//  */
+// function gangu_entity_field_access($operation, FieldDefinitionInterface $field_definition, AccountInterface $account, FieldItemListInterface $items = NULL) {
+//   if ($field_definition->getName() === 'publish_state') {
+//     $content_type = $items->getEntity()->getType(); // the machine name of the content type.
+
+//     // TODO: Add logic here.
+//   }
+
+//   // No opinion.
+//   return AccessResult::neutral();
+// }
+/**
+ * Provides key-value options for a select list.
+ *
+ * @param \Drupal\field\Entity\FieldStorageConfig $definition
+ *   The field definition.
+ * @param \Drupal\Core\Entity\ContentEntityInterface|null $entity
+ *   The entity being created, if applicable.
+ * @param bool $cacheable
+ *   Boolean indicating if the results are cache-able.
+ *
+ * @return array
+ *   An array of possible key and value options.
+ *
+ * @see options_allowed_values()
+ */
+// function example_allowed_values(FieldStorageConfig $definition, ContentEntityInterface $entity = NULL, $cacheable) {
+//   $options = [];
+// echo $definition;die;
+// $options = [
+//   1 => 'My new option 1',
+//   2 => 'My new option 2',
+//   3 => 'My new option 3',
+//  ];
+// //return $options;
+//   // Usually, the options list is constructed using a loop.
+//   $options['example_key'] = FieldFilteredMarkup::create($options);
+
+//   // Note: the key of the options list is stored in the database, not the value.
+//   return $options;
+// }
+
+
+
+
+

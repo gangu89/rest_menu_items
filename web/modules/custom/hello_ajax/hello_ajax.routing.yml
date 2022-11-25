@@ -1,0 +1,6 @@
+hello_ajax.hello_ajax_response:
+  path: '/hello-ajax-response'
+  defaults:
+    _controller: '\Drupal\hello_ajax\Controller\HelloAjaxController::createHelloAjaxResponse'
+  requirements:
+    _permission: 'access content'

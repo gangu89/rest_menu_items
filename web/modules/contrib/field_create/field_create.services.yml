@@ -1,0 +1,14 @@
+services:
+  logger.channel.field_create:
+    parent: logger.channel_base
+    arguments: ["field_create"]
+  field_create.manager:
+    class: Drupal\field_create\FieldCreateManager
+    arguments:
+      [
+        "@logger.channel.field_create",
+        "@module_handler",
+        "@entity_type.manager",
+        "@entity_display.repository",
+        "@config.factory",
+      ]

@@ -1,0 +1,76 @@
+<?php
+
+/**
+ * @file
+ * Contains demo code for the field_create_from_json module.
+ */
+
+use Drupal\Component\Serialization\Json;
+use Drupal\Component\Serialization\Yaml;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Link;
+use Drupal\Core\Render\Element;
+use Drupal\Core\Url;
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function field_create_from_json_form_field_create_settings_alter(array &$form, FormStateInterface $form_state) {
+  // Improve description.
+  $description = t('You can use JSON content which will be convert to YAML automatically on save.') . ' ';
+  $description .= Link::fromTextAndUrl(t('See an example here'), Url::fromUri(
+    file_create_url(drupal_get_path('module', 'field_create_from_json') . '/example/node_fields.json'),
+    ['attributes' => ['target' => '_blank']]
+  ))->toString();
+
+  $form['container']['#markup'] = $form['container']['#markup'] ?? '';
+  $form['container']['#markup'] .= '<br>' . $description;
+
+  // Add the magic convertion box.
+  foreach (Element::children($form['container']) as $entity_type_id) {
+    $config = \Drupal::config('field_create.' . $entity_type_id . '.settings');
+
+    // Prevent YAML edition as we want to use JSON.
+    $form['container'][$entity_type_id][$entity_type_id . '_content']['#disabled'] = TRUE;
+
+    $form['container'][$entity_type_id][$entity_type_id . '_json'] = [
+      '#type' => 'textarea',
+      '#title' => t('JSON'),
+      '#placeholder' => t('Copy/Paste JSON here'),
+      '#default_value' => $config ? Json::encode($config->getRawData()) : NULL,
+    ];
+  }
+
+  // Add callbacks.
+  array_unshift($form['#validate'], 'field_create_from_json_settings_validate');
+  array_unshift($form['#submit'], 'field_create_from_json_settings_submit');
+}
+
+/**
+ * Custom validation callback for the settings form.
+ */
+function field_create_from_json_settings_validate(&$form, FormStateInterface $form_state) {
+  foreach ($form_state->get('entity_type_ids') ?? [] as $entity_type_id) {
+    if (!empty($json = $form_state->getValue($entity_type_id . '_json'))) {
+      if (!empty($decoded = Json::decode($json)) && !$decoded) {
+        $form_state->setErrorByName(
+          $entity_type_id . '_json',
+          $this->t('Could not decode JSON properly for @entity_type_id.', [
+            '@entity_type_id' => $entity_type_id,
+          ])
+        );
+      }
+    }
+  }
+}
+
+/**
+ * Custom validation callback for the settings form.
+ */
+function field_create_from_json_settings_submit($form, FormStateInterface $form_state) {
+  foreach ($form_state->get('entity_type_ids') ?? [] as $entity_type_id) {
+    if ($decoded = Json::decode($form_state->getValue($entity_type_id . '_json'))) {
+      $form_state->setValue($entity_type_id . '_content', Yaml::encode($decoded));
+    }
+  }
+}

@@ -1,0 +1,13 @@
+name: Create fields from JSON
+type: module
+description: "Import JSON to be used by field_create module."
+package: Development
+# version: VERSION
+core_version_requirement: ^9
+dependencies:
+  - field_create
+
+# Information added by Drupal.org packaging script on 2021-10-21
+version: '1.0.0-beta3'
+project: 'field_create'
+datestamp: 1634812412

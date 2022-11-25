@@ -1,0 +1,10 @@
+name: 'Migrate Discography'
+type: module
+description: 'Migrate example with a discography content model.'
+core_version_requirement: ^9 || ^10
+package: 'Custom'
+dependencies:
+  - migrate_tools
+  - migrate_source_csv
+  - paragraphs
+  - media

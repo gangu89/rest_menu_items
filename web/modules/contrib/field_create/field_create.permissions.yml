@@ -1,0 +1,4 @@
+administer field_create settings:
+  title: "Administer field_create settings"
+  description: "Perform administration tasks for the field_create module."
+  restrict access: TRUE

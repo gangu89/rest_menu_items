@@ -1,0 +1,7 @@
+field_create.admin_form:
+  path: "/admin/config/development/field-create"
+  defaults:
+    _form: '\Drupal\field_create\Form\SettingsForm'
+    _title: Create fields programmatically
+  requirements:
+    _permission: "administer field_create settings"

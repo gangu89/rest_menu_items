@@ -1,0 +1,8 @@
+name: paragraph_migration
+type: module
+description: My Awesome Module
+core_version_requirement: ^9 || ^10
+dependencies:
+  - migrate_plus
+  - migrate_source_csv
+  - migrate_tools

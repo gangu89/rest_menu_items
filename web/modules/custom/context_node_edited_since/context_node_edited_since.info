@@ -1,0 +1,7 @@
+name = Context plugin edited since
+description = Context plugin to be able to trigger context when node edited by user since given date.
+package = custom
+core = 7.x
+
+dependencies[] = date
+dependencies[] = context

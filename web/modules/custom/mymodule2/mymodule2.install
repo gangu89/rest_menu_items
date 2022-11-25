@@ -1,0 +1,25 @@
+<?php
+
+use Drupal\Core\Database\Database;
+
+/**
+ * Implements hook_install().
+ */
+function mymodule2_install() {
+  
+  // Change length of the name field.
+  $schema = Database::getConnection()->schema();
+  $schema->changeField('students', 'name', 'name', [
+    'length' => '255',
+    'not null' => TRUE,
+    'type' => 'varchar',
+  ]);
+
+  // Change length of the name field in revisions.
+  $schema = Database::getConnection()->schema();
+  $schema->changeField('students_revision', 'name', 'name', [
+    'default' => NULL,
+    'length' => '255',
+    'type' => 'varchar',
+  ]);
+}

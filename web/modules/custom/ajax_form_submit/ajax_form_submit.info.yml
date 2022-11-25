@@ -1,0 +1,5 @@
+name: Ajax Form Submit example
+type: module
+description: Demonstrates the Drupal Form API with ajax submit.
+core_version_requirement: ^8 || ^9
+

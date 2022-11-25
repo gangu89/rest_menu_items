@@ -1,0 +1,240 @@
+<?php
+
+/**
+ * @file
+ * Contains Drupal\custom\aragraph_validate\aragraph_validate.module.
+ */
+namespace Drupal\login_id\Entity;
+
+use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\Core\Field\BaseFieldDefinition;
+use Drupal\user\Entity\User;
+
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\paragraphs\Entity\Paragraph;
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\node\Entity\Node;
+use Drupal\field\Entity;
+use Drupal\field\Entity\FieldConfig;
+use Drupal\field\Entity\FieldStorageConfig;
+
+use Drupal\Core\Entity\ContentEntityInterface;
+use Drupal\Core\Field\FieldFilteredMarkup;
+
+/**
+ * Implements hook_entity_type_alter().
+ */
+function paragraph_validate_entity_type_alter(array &$entity_types) {
+  // dsm($entity_types);
+  $entity_types['user']->setClass(LoginIdUser::class);
+  // We get all form modes, for all entities, and loop through them.
+  // $form_modes = \Drupal::service('entity_display.repository')->getAllFormModes();
+  // foreach ($form_modes as $entity_type => $display_modes) {
+  //   if ($entity_type !== 'node') {
+  //     // We are only interested in adding a handler to the Node entity.
+  //     continue;
+  //   }
+
+  //   $node_type = $entity_types[$entity_type];
+  //   foreach ($display_modes as $machine_name => $form_display) {
+  //     if ($machine_name !== 'create_editors') {
+  //       // We are only interested in adding this form mode to the definition.
+  //       continue;
+  //     }
+  //     // We get the default handler class. It will be enough for us.
+  //     $default_handler_class = $node_type->getHandlerClasses()['form']['default'];
+  //     // We set the form class, keyed by the machine name of our custom form mode.
+  //     $node_type->setFormClass($machine_name, $default_handler_class);
+  //   }
+  // }
+}
+
+
+// function paragraph_validate_entity_type_alter(array &$entity_types) {
+  // echo '<pre>';print_r($entity_type);die;
+ // $entity_types[‘core_or_contrib_entity’]->setClass(MyModuleEntity::class);
+//  if ($entity_type->id() === 'node' && in_array($bundle, $bundles) {
+ 
+  // $fields = [];
+  // $storage_definition = \Drupal::service('entity_field.manager')->getFieldStorageDefinitions('node')[$field_id];
+  // $fields[$field_id] = FieldDefinition::createFromFieldStorageDefinition($storage_definition) ->setDisplayOptions('form', [...]) ->setDisplayConfigurable('view', TRUE) ->setDisplayOptions('view’, [...]]) ->setLabel(t('Convivial identifier'));
+  // return $fields;
+// }
+//  } 
+
+
+/**
+ * Provides key-value options for a select list.
+ *
+ * @param \Drupal\field\Entity\FieldStorageConfig $definition
+ *   The field definition.
+ * @param \Drupal\Core\Entity\ContentEntityInterface|null $entity
+ *   The entity being created, if applicable.
+ * @param bool $cacheable
+ *   Boolean indicating if the results are cache-able.
+ *
+ * @return array
+ *   An array of possible key and value options.
+ *
+ * @see options_allowed_values()
+ */
+// function example_allowed_values(FieldStorageConfig $definition, ContentEntityInterface $entity = NULL, $cacheable) {
+//   $options = [];
+// echo 'hi';die;
+// $options = [
+//   1 => 'My new option 1',
+//   2 => 'My new option 2',
+//   3 => 'My new option 3',
+//  ];
+// //return $options;
+//   // Usually, the options list is constructed using a loop.
+//   $options['example_key'] = FieldFilteredMarkup::create($options);
+
+//   // Note: the key of the options list is stored in the database, not the value.
+//   return $options;
+// }
+
+
+/**
+ * Implements hook_form_FORM_ID_alter() for the FORM_ID() form.
+ */
+function paragraph_validate_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  // echo $form_id;
+  //dpm($form['field_list_of_schemes_details']['widget'][0]['subform']['field_getcategorymaster']['widget']['#options']);
+  // $i=0;
+  //   foreach($i as $v){
+      $getcategorymaster = array('aa'=>1,'bb'=>2,'cc'=>3);
+      $form['field_demo_details']['widget'][$i]['subform']['field_demo']['widget']['#options'] = \Drupal\Core\Field\FieldFilteredMarkup::create(t('Description'));
+  //  $i++;
+  //   }
+  
+  
+  if ($form_id == 'node_scheme_packs_form' || $form_id == 'node_scheme_packs_form') {
+    $getcategorymaster = array('aa'=>1,'bb'=>2,'cc'=>3);
+    
+    $form['field_demo_details']['widget'][0]['subform']['field_demo']['widget']['#options'] = $getcategorymaster;
+    // $form['field_list_of_schemes_details']['widget'][0]['subform']['field_getcategorymaster']['widget']['#ajax'] = [
+    //   'callback' => 'http://local.uti.com/getcategorymaster/ajax',
+    //   'disable-refocus' => FALSE,
+    //   'event' => 'change',
+    //   'wrapper' => 'edit-output',
+    //   'progress' => [
+    //     'type' => 'throbber',
+    //     'message' => t('Verifying entry...'),
+    //   ]];
+
+  //   $bundles = \Drupal::service('entity_type.bundle.info')->getBundleInfo('paragraph');
+  // foreach($bundles as $key => $bundle){
+  //   $fields = \Drupal::service('entity_field.manager')->getFieldDefinitions('paragraph', $key);
+  //   //dsm($fields);
+  // }
+ 
+    $paragraph = Paragraph::create([
+      'type' => 'field_list_of_schemes_details',
+      'field_getcategorymaster' => $getcategorymaster,
+      // 'field_type_primary_comanage_desc' => $value[2],
+      // 'field_from_date' => $date ? $fund_date : null ,
+      ]);
+      // dpm($paragraph);die;
+  $paragraph->save();	
+  $items[] =  [
+      'target_id' => $paragraph->id(),
+      'target_revision_id' => $paragraph->getRevisionId(),
+  ];   
+  }
+  if ($form_id == 'node_uti_banner_edit_form' || $form_id == 'node_uti_banner_form') {
+    $form['#validate'][] = '_form_validate_paragraph';
+  }
+
+        unset($items);  
+}
+
+/**
+ * Custom Hook function for domain source added.
+ */
+function paragraph_validate_node_presave(EntityInterface $entity) {
+echo '<pre>';print_r($entity);die;
+  if (empty($entity->get('field_domain_source')->target_id)) {
+    $entity->set('field_domain_source', $entity->get('field_domain_access')->target_id);
+  }
+}
+/**                                                                                                                                                                                                                                          
+ * Implements hook_preprocess_node(&$variables).                                                                                                                                                                                         
+ */
+function paragraph_validate_preprocess_node(&$variables) {
+  echo '<pre>';print_r($variables);die;
+  // Issue API request.
+  // Process JSON response.
+  $variables['additional_field'] = $request_result;
+}
+/**
+ * Implements hook_preprocess_HOOK()
+ */
+function paragraph_validate_preprocess_paragraph(&$variables) {
+  // Populate color templates vars, based on chosen color.
+  $paragraph = $variables['paragraph'];
+  dpm($paragraph);die;
+}
+function paragraph_validate_entity_presave(EntityInterface $entity){
+  //echo '<pre>';print_r($entity);die; 
+  //dpm($entity->bundle());die;
+  $getcategorymaster = array('aa'=>1);
+
+//   $paragraph = Paragraph::create([
+//     'type' => 'field_list_of_schemes_details',
+//     'field_getcategorymaster' => $getcategorymaster,
+//     ]);
+   
+// $paragraph->save();	
+// $items[] =  [
+//     'target_id' => $paragraph->id(),
+//     'target_revision_id' => $paragraph->getRevisionId(),
+// ];   
+// $node = Node::create([
+//   'type' => 'items',
+//   'scheme_packs' => array(
+//       array(
+//           'target_id' => $paragraph->id(),
+//           'target_revision_id' => $paragraph->getRevisionId()
+//       ),
+//   ),
+// ]);
+// $node->save();
+  // $entity->set( 'field_getcategorymaster',$getcategorymaster );
+
+$entity_type = 'scheme_packs';
+$bundle = 'paragraph';
+$field_name = 'field_getcategorymaster';
+//$ip_sec_zone_storage_values = FieldStorageConfig::loadByName($entity_type, $field_name);
+// $region = FieldConfig::loadByName('node', 'paragraph', 'field_getcategorymaster');
+
+//$region = FieldConfig::loadByName('node', 'scheme_packs', 'field_getcategorymaster')->getSetting('allowed_values');
+// $field['settings']['allowed_values_function'] = 'my_callback_function';
+// field_update_field($field);
+
+// $field = FieldStorageConfig::loadByName('scheme_packs', 'field_getcategorymaster');
+//dsm($region);die;
+// $allowed_values = $ip_sec_zone_storage_values->getSetting('allowed_values');
+// // The new value.
+// $allowed_values[$getcategorymaster] = $getcategorymaster;
+// $ip_sec_zone_storage_values->setSetting('allowed_values', $allowed_values);
+// $ip_sec_zone_storage_values->save();
+}
+
+
+
+/**
+ * Validates submission values in the FORM_ID() form.
+ */
+function _form_validate_paragraph(&$form, FormStateInterface $form_state) {
+  
+  $widgets = $form_state->getValue('field_banner_uti');  
+  foreach ($widgets as $widget) {
+    $start_date = $widget['subform']['field_start_date_banner'][0]['value'];
+    $end_date = $widget['subform']['field_end_date_banner'][0]['value'];
+    if ($end_date < $start_date) {
+      $form_state->setErrorByName('field_end_date_banner', t('start date greater than end date'));
+    }
+  }
+}
+

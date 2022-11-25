@@ -1,0 +1,32 @@
+<?php
+/**
+ * Provides key-value options for a select list.
+ *
+ * @param \Drupal\field\Entity\FieldStorageConfig $definition
+ *   The field definition.
+ * @param \Drupal\Core\Entity\ContentEntityInterface|null $entity
+ *   The entity being created, if applicable.
+ * @param bool $cacheable
+ *   Boolean indicating if the results are cache-able.
+ *
+ * @return array
+ *   An array of possible key and value options.
+ *
+ * @see options_allowed_values()
+ */
+// function example_allowed_values(FieldStorageConfig $definition, ContentEntityInterface $entity = NULL, $cacheable) {
+//   $options = [];
+// echo $definition;die;
+// $options = [
+//   1 => 'My new option 1',
+//   2 => 'My new option 2',
+//   3 => 'My new option 3',
+//  ];
+// //return $options;
+//   // Usually, the options list is constructed using a loop.
+//   $options['example_key'] = FieldFilteredMarkup::create($options);
+
+//   // Note: the key of the options list is stored in the database, not the value.
+//   return $options;
+// }
+

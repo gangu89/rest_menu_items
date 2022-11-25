@@ -1,0 +1,11 @@
+langcode: en
+dependencies:
+  enforced:
+    module:
+    - my_module
+name: 'Foo'
+type: foo
+description: 'Test content type description.'
+help: 'Test help text.'
+new_revision: false
+preview_mode: 2

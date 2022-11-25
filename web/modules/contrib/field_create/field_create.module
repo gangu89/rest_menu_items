@@ -1,0 +1,29 @@
+<?php
+
+/**
+ * @file
+ * Contains custom functionalities and hooks for field_create module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function field_create_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    case 'help.page.field_create':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('This module is a tool for developers.') . '</p>';
+      $output .= '<p>' . t('It provides a service to create fields from custom config YAML files.') . '</p>';
+
+      $output .= '<h3>' . t('How to use') . '</h3>';
+      $output .= '<p>' . t('First, you need to create some fields definitions.') . '</p>';
+      $output .= '<p>' . t('An example is provided in <code>hook_field_create_definitions()</code>') . '</p>';
+      $output .= '<p>' . t('Then simply run <code>drush field-create</code>.') . '</p>';
+      $output .= '<p>' . t('Finally, uninstall the module.') . '</p>';
+
+      return $output;
+  }
+}

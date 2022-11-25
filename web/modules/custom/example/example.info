@@ -1,0 +1,8 @@
+name = Example of testing ajax using js module
+description = Example of testing ajax using js module
+package = Views
+
+core = "7.x"
+version = "7.x-1.3"
+project = "example"
+

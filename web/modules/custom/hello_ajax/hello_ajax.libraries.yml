@@ -1,0 +1,7 @@
+hello-ajax:
+  version: VERSION
+  js:
+    js/hello-ajax.js: {}
+  dependencies:
+    - core/drupal.ajax
+

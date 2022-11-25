@@ -1,0 +1,96 @@
+<?php
+
+/**
+ * @file
+ * TODO: Enter file description here.
+ */
+
+/**
+ * Implements hook_help().
+ */
+function context_node_edited_since_help($path, $arg) {
+  /* INFO:
+   * The help hook is for displaying helpful messages at the top of pages indicated
+   * by $section to further explain how they work. Adding certain "keywords" to the end of
+   * a given path (like admin/modules#description) will cause this text to display elsewhere
+   * in the page as well (in this case, in the description section for the given module).
+   */
+  switch ($path) {
+    case 'admin/help#context_node_edited_since':
+      return t("Context plugin to be able to trigger context when node edited by user since given date.");
+    // OPTIONAL: Add additional cases for other paths that should display help text.
+  }
+}
+
+/**
+ * Implements hook_context_plugins().
+ */
+function context_node_edited_since_context_plugins() {
+  $plugins = array();
+  $plugins['context_node_edited_since_context_condition'] = array(
+    'handler' => array(
+      'path' => drupal_get_path('module', 'context_node_edited_since') .'/plugins',
+      'file' => 'context_node_edited_since_context_condition_date_since.inc',
+      'class' => 'context_node_edited_since_context_condition_date_since',
+      'parent' => 'context_condition',
+    ),
+  );
+  return $plugins;
+}
+
+/**
+ * Implements hook_context_registry().
+ */
+function context_node_edited_since_context_registry() {
+  return array(
+    'conditions' => array(
+      'date_since' => array(
+        'title' => t('Node edited since given date condition'),
+        'description' => t('Set this context based on late edited date by user.'),
+        'plugin' => 'context_node_edited_since_context_condition',
+      ),
+    ),
+  );
+}
+
+/**
+ * Implements hook_node_view().
+ */
+function context_node_edited_since_node_view($node, $view_mode) {
+  // Fire our context plugin when viewing nodes.
+  if ($view_mode == 'full') {
+    if ($plugin = context_get_plugin('condition', 'date_since')) {
+      $plugin->execute($node);
+    }
+  }
+}
+
+/**
+ * Implements hook_node_edit().
+ */
+function context_node_edited_since_form_alter($form, $form_state, $form_id) {
+  // get node from $form variable
+  $node = $form['#node'];
+
+  // Fire our context plugin when viewing nodes.
+  if(isset($node)) {
+    if ($plugin = context_get_plugin('condition', 'date_since')) {
+      $plugin->execute($node);
+    }
+  }
+}
+
+/**
+ * Implements hook_node_view()
+ */
+// function context_node_edited_since_node_view($node, $view_mode, $langcode) {
+//   // get node from $form variable
+//   $node = $form['#node'];
+
+//   // Fire our context plugin when viewing nodes.
+//   if(isset($node)) {
+//     if ($plugin = context_get_plugin('condition', 'date_since')) {
+//       $plugin->execute($node);
+//     }
+//   }
+// }

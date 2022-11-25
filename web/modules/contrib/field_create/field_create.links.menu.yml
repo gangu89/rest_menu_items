@@ -1,0 +1,5 @@
+field_create.admin_form:
+  title: "Create fields programmatically"
+  parent: system.admin_config_development
+  description: "Administrative interface for the field_create module"
+  route_name: field_create.admin_form

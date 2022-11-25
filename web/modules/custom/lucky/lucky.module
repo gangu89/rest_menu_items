@@ -1,0 +1,128 @@
+<?php
+
+use Drupal\Core\Controller\ControllerBase;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Drupal\paragraphs\Entity\Paragraph;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\image\Entity\ImageStyle;
+use Drupal\Component\Utility\Html;
+use Symfony\Component\HttpFoundation\Request;
+use Drupal\Core\Cache\CacheBackendInterface;
+use Drupal\Core\Datetime\DrupalDateTime;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Drupal\Core\Url;
+use Drupal\Core\Routing;
+use Drupal\media\Entity\Media;
+use Drupal\node\Entity\Node;
+use Drupal\file\Entity\File;
+use Drupal\Core\Entity\Query\QueryFactory;
+use Drupal\Core\Field\BaseFieldDefinition;
+use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\user\Entity\User;
+use Drupal\Core\Form\FormStateInterface;
+
+use Drupal\Core\Entity\ContentEntityInterface;
+use Drupal\field\Entity\FieldStorageConfig;
+
+use Drupal\Core\Field\FieldDefinitionInterface;
+
+/**
+ * Set dynamic allowed values for the alignment field.
+ *
+ * @param \Drupal\field\Entity\FieldStorageConfig $definition
+ *   The field definition.
+ * @param \Drupal\Core\Entity\ContentEntityInterface|null $entity
+ *   The entity being created if applicable.
+ * @param bool $cacheable
+ *   Boolean indicating if the results are cacheable.
+ *
+ * @return array
+ *   An array of possible key and value options.
+ *
+ * @see options_allowed_values()
+ */
+function example_allowed_values_function(FieldStorageConfig $definition, ContentEntityInterface $entity = NULL, $cacheable) {
+  $response = [];
+    $base_url = Request::createFromGlobals()->getSchemeAndHttpHost();  
+    $client = \Drupal::httpClient();
+
+    $url = 'https://utiservicesuat.kfintech.com/Genesis/api/Genesis/GetCategoryMaster';
+    $method = 'POST';
+    $options = [
+    'form_params' => [
+      'AppVersion'=>'5.0',
+      'DeviceDetails'=>'116.50.59.180',
+      'Source'=>'Mobile',
+      'ModuleName'=>'Onboarding',
+      'TransactionType'=>'',
+      'Adminusername'=>'KCPLZNMQAMR4',
+      'Adminpassword'=>'W3laJmM1ZjtxW0BP-aW1QQMt2fBQ='
+    ]
+    ];
+
+    $client = \Drupal::httpClient();
+    $response = $client->request($method, $url, $options);
+    $code = $response->getStatusCode();
+    if ($code == 200) {
+    $body = $response->getBody()->getContents();
+    $content = json_decode($body);
+    $data = array();
+    foreach($content->GetCategoryMaster as $v){
+    $data[] = $v->bc_Name;
+    
+    }     
+    }
+  // $options = [
+  //   'left' => 'Left',
+  //   'right' => 'Right',
+  // ];
+  // Add a custom alignment option for Article nodes.
+  // if ($entity->bundle() == 'article') {
+  //   $options['center'] = 'Center';
+  // }
+
+  return $options = $data;
+}
+
+
+
+/**
+ * Sets the default value for the alignment field.
+ *
+ * @param \Drupal\Core\Entity\ContentEntityInterface $entity
+ *   The entity being created.
+ * @param \Drupal\Core\Field\FieldDefinitionInterface $definition
+ *   The field definition.
+ *
+ * @return array
+ *   An array of default value keys with each entry keyed with the “value” key.
+ *
+ * @see \Drupal\Core\Field\FieldConfigBase::getDefaultValue()
+ */
+function example_default_value_function(ContentEntityInterface $entity, FieldDefinitionInterface $definition) {
+  $default = 'right';
+  // Article nodes should default to center alignment.
+  if ($entity->bundle() == 'article') {
+    $default = 'center';
+  }
+
+  return [
+    ['value' => $default],
+  ];
+}
+
+function lucky_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  
+ // Adding custom validation for the welcome page type field.
+ if ($form_id == 'node_article_edit_form' || $form_id == 'node_article_form') {
+  // dsm($form_id);
+  // Do some stuff.
+    $form['#attached']['library'][] = 'lucky/custom';
+    return $form;
+}
+}
+
+
+
+

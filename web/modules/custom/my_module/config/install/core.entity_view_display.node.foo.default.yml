@@ -1,0 +1,19 @@
+# langcode: en
+# status: true
+# dependencies:
+#   config:
+#   - field.field.node.foo.field_foo_id
+#   - node.type.foo
+# id: node.foo.default
+# targetEntityType: node
+# bundle: foo
+# mode: default
+# content:
+#   field_foo_id:
+#     label: hidden
+#     type: string
+#     weight: 100
+#     settings: {  }
+#     third_party_settings: {  }
+
+  

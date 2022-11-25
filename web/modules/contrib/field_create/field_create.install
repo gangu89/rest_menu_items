@@ -1,0 +1,33 @@
+<?php
+
+/**
+ * @file
+ * Install file for field_create module.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function field_create_install() {
+  $message = t('The field_create module installed successfully!') . ' ' . PHP_EOL;
+  $message .= t('Module settings are available under !link', [
+    '!link' => l(
+      t('Administer > Configuration > Development > Create fields programmatically'),
+      '/admin/config/development/field-create'),
+  ]);
+
+  \Drupal::messenger()->addStatus($message);
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function field_create_uninstall() {
+  // Delete all existing configurations.
+  $config_factory = \Drupal::configFactory();
+  foreach (\Drupal::entityTypeManager()->getDefinitions() as $entity_type) {
+    if ($config = $config_factory->getEditable('field_create.' . $entity_type->id() . '.settings')) {
+      $config->delete();
+    }
+  }
+}

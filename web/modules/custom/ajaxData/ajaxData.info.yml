@@ -1,0 +1,4 @@
+name: 'Append Data without page load'
+description: 'Data without page load plugin'
+core_version_requirement: ^8 || ^9
+type: module

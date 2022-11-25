@@ -1,0 +1,8 @@
+services:
+  field_create.command:
+    class: Drupal\field_create\Commands\FieldCreateCommands
+    arguments:
+      - '@logger.channel.field_create'
+      - '@field_create.manager'
+    tags:
+      -  { name: drush.command }

@@ -1,0 +1,37 @@
+<?php
+
+namespace Drupal\admin_email\Entity;
+namespace Drupal\user\Entity\User;
+
+use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\Core\Field\BaseFieldDefinition;
+use Drupal\user\Entity;
+use Drupal\user\Entity\User;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Entity\ContentEntityType;
+
+function admin_email_update_8701() {
+
+  $module_name = 'admin_email';
+  $entity_type = 'user';
+  $fields = [
+    'admin_mail',
+  ];
+
+  $entity_definition_update_manager = \Drupal::entityDefinitionUpdateManager();
+  $field_definitions = \Drupal::service('entity_field.manager')
+  // \Drupal::service('entity.definition_update_manager')->applyUpdates();
+
+    ->getFieldDefinitions($entity_type, $entity_type);
+  foreach ($fields as $field_name) {
+    if (!empty($field_definitions[$field_name])) {
+      $entity_definition_update_manager
+        ->installFieldStorageDefinition(
+          $field_name,
+          $entity_type,
+          $module_name,
+          $field_definitions[$field_name]);
+    }
+  }
+
+}

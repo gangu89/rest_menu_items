@@ -1,0 +1,20 @@
+PostSchemeMaster_data:
+  path: '/getschememaster/ajax/{getcategorymaster}'
+  defaults:
+    _title: 'Post JSON to be used for PostSchemeMaster data'
+    options:
+      query:
+        type: ""
+    _controller: '\Drupal\lucky\UtichooseDataJsonController::PostSchemeMaster'
+  requirements:    
+    _access: 'TRUE'
+PostPlanOptions_data:
+  path: '/getplanoptions/ajax/{getPlanOptions}'
+  defaults:
+    _title: 'Post JSON to be used for PostPlanOptions data'
+    options:
+      query:
+        type: ""
+    _controller: '\Drupal\lucky\UtichooseDataJsonController::PostPlanOptions'
+  requirements:    
+    _access: 'TRUE'
