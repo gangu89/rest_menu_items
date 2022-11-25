@@ -1,0 +1,10 @@
+uuid: fe97305a-8540-4cf6-9af2-d87ff07b8dad
+langcode: en
+status: true
+dependencies: {  }
+id: list_of_scheme
+label: 'List of scheme'
+icon_uuid: null
+icon_default: null
+description: ''
+behavior_plugins: {  }

@@ -1,0 +1,38 @@
+uuid: f8e20573-8ae2-48c7-8fe3-d3254a645420
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.list_of_scheme.field_getcategorymaster
+    - field.field.paragraph.list_of_scheme.field_getplanoptions
+    - field.field.paragraph.list_of_scheme.field_getschememaster
+    - paragraphs.paragraphs_type.list_of_scheme
+  module:
+    - options
+id: paragraph.list_of_scheme.default
+targetEntityType: paragraph
+bundle: list_of_scheme
+mode: default
+content:
+  field_getcategorymaster:
+    type: list_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_getplanoptions:
+    type: list_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_getschememaster:
+    type: list_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+hidden: {  }

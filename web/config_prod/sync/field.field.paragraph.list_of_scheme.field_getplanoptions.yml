@@ -1,0 +1,21 @@
+uuid: 84d2b468-61b4-48d6-bc5a-34862e471584
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_getplanoptions
+    - paragraphs.paragraphs_type.list_of_scheme
+  module:
+    - options
+id: paragraph.list_of_scheme.field_getplanoptions
+field_name: field_getplanoptions
+entity_type: paragraph
+bundle: list_of_scheme
+label: GetPlanOptions
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

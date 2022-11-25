@@ -1,0 +1,19 @@
+uuid: 81f5c1e5-ef5c-406f-98db-0b737a5f4880
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_last_name
+    - node.type.students
+id: node.students.field_last_name
+field_name: field_last_name
+entity_type: node
+bundle: students
+label: 'Last Name'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

@@ -1,0 +1,36 @@
+uuid: 0e2f2b19-dfea-47a6-a1e2-c9186f4173ea
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.tile.field_description
+    - field.field.paragraph.tile.field_image
+    - image.style.thumbnail
+    - paragraphs.paragraphs_type.tile
+  module:
+    - image
+    - text
+id: paragraph.tile.default
+targetEntityType: paragraph
+bundle: tile
+mode: default
+content:
+  field_description:
+    type: text_textarea
+    weight: 0
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_image:
+    type: image_image
+    weight: 1
+    region: content
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+hidden:
+  created: true
+  status: true

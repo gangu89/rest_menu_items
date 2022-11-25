@@ -1,0 +1,29 @@
+uuid: 8a335434-4d86-4b4e-931e-9bf48d9f6b9a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_image2
+    - media.type.mobile_media
+    - node.type.students
+id: node.students.field_image2
+field_name: field_image2
+entity_type: node
+bundle: students
+label: image
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:media'
+  handler_settings:
+    target_bundles:
+      mobile_media: mobile_media
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

@@ -1,0 +1,38 @@
+uuid: 3ae7cdca-79a3-407a-af74-2c672c25ed2b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.media.field_media_image_1
+    - media.type.mobile_media
+  module:
+    - image
+id: media.mobile_media.field_media_image_1
+field_name: field_media_image_1
+entity_type: media
+bundle: mobile_media
+label: Image
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:file'
+  handler_settings: {  }
+  file_directory: '[date:custom:Y]-[date:custom:m]'
+  file_extensions: 'png gif jpg jpeg'
+  max_filesize: '50 MB'
+  max_resolution: ''
+  min_resolution: 640x480
+  alt_field: true
+  alt_field_required: true
+  title_field: false
+  title_field_required: false
+  default_image:
+    uuid: ''
+    alt: ''
+    title: ''
+    width: null
+    height: null
+field_type: image

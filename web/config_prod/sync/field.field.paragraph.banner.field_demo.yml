@@ -1,0 +1,21 @@
+uuid: aece176a-2175-458b-a6ba-7f52873274e1
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_demo
+    - paragraphs.paragraphs_type.banner
+  module:
+    - options
+id: paragraph.banner.field_demo
+field_name: field_demo
+entity_type: paragraph
+bundle: banner
+label: demo
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

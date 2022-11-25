@@ -1,0 +1,21 @@
+uuid: 9aeb3c06-0cba-4271-b7f2-691fce07bf01
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_alignment
+    - node.type.article
+  module:
+    - options
+id: node.article.field_alignment
+field_name: field_alignment
+entity_type: node
+bundle: article
+label: alignment
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: example_default_value_function
+settings: {  }
+field_type: list_string

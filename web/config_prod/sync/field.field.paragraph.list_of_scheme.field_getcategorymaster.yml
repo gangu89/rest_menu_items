@@ -1,0 +1,21 @@
+uuid: 6417b338-0f3d-4146-a388-3230c1c12503
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_getcategorymaster
+    - paragraphs.paragraphs_type.list_of_scheme
+  module:
+    - options
+id: paragraph.list_of_scheme.field_getcategorymaster
+field_name: field_getcategorymaster
+entity_type: paragraph
+bundle: list_of_scheme
+label: GetCategoryMaster
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

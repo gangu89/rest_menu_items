@@ -1,0 +1,33 @@
+uuid: e6220a76-d2d8-4657-89d6-3eb0dcb0f011
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.tile.field_description
+    - field.field.paragraph.tile.field_image
+    - paragraphs.paragraphs_type.tile
+  module:
+    - image
+    - text
+id: paragraph.tile.default
+targetEntityType: paragraph
+bundle: tile
+mode: default
+content:
+  field_description:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_image:
+    type: image
+    label: above
+    settings:
+      image_link: ''
+      image_style: ''
+    third_party_settings: {  }
+    weight: 1
+    region: content
+hidden: {  }

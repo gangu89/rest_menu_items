@@ -1,0 +1,18 @@
+uuid: cfbfb600-19b4-4c02-9781-c8ad1cd967d3
+langcode: en
+status: true
+dependencies:
+  module:
+    - rest_menu_items
+    - serialization
+    - user
+id: rest_menu_item
+plugin_id: rest_menu_item
+granularity: resource
+configuration:
+  methods:
+    - GET
+  formats:
+    - json
+  authentication:
+    - cookie

@@ -1,0 +1,29 @@
+uuid: c4c5a593-d4ee-45b7-aac5-5a275c24d1be
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.media.mobile_media.field_media_image_1
+    - image.style.crop_image_style_16_9
+    - media.type.mobile_media
+  module:
+    - image
+id: media.mobile_media.default
+targetEntityType: media
+bundle: mobile_media
+mode: default
+content:
+  field_media_image_1:
+    type: image
+    label: visually_hidden
+    settings:
+      image_link: ''
+      image_style: crop_image_style_16_9
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  created: true
+  name: true
+  thumbnail: true
+  uid: true

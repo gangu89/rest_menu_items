@@ -1,0 +1,8 @@
+uuid: 5551b763-e785-40f5-a57e-24d51a51d6f9
+langcode: en
+status: true
+dependencies: {  }
+id: mobile-app-menu
+label: 'Mobile app Menu'
+description: ''
+locked: false

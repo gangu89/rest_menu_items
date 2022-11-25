@@ -1,0 +1,39 @@
+uuid: a2971b6d-f5d1-4d76-b8fa-4c163cbf7d97
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.album_media.field_name
+    - field.field.node.album_media.field_track
+    - node.type.album_media
+  module:
+    - entity_reference_revisions
+    - user
+id: node.album_media.default
+targetEntityType: node
+bundle: album_media
+mode: default
+content:
+  field_name:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 102
+    region: content
+  field_track:
+    type: entity_reference_revisions_entity_view
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 101
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden: {  }

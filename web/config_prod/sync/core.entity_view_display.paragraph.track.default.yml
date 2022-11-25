@@ -1,0 +1,36 @@
+uuid: 2fccdd29-0967-4f6f-81c4-7fb2dc246e69
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.track.field_link
+    - field.field.paragraph.track.field_title
+    - paragraphs.paragraphs_type.track
+  module:
+    - link
+id: paragraph.track.default
+targetEntityType: paragraph
+bundle: track
+mode: default
+content:
+  field_link:
+    type: link
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_title:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 1
+    region: content
+hidden: {  }

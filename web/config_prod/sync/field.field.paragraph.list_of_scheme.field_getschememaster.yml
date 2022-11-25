@@ -1,0 +1,21 @@
+uuid: 0b15dbed-e6f1-4cf6-b431-aae32563d1de
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_getschememaster
+    - paragraphs.paragraphs_type.list_of_scheme
+  module:
+    - options
+id: paragraph.list_of_scheme.field_getschememaster
+field_name: field_getschememaster
+entity_type: paragraph
+bundle: list_of_scheme
+label: GetSchemeMaster
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

@@ -1,0 +1,12 @@
+uuid: b2b1942d-3685-430a-8a02-3450fd8f2a7d
+langcode: en
+status: true
+dependencies: {  }
+label: 'crop 16:9'
+id: crop_16_9
+description: ''
+aspect_ratio: '16:9'
+soft_limit_width: 320
+soft_limit_height: 180
+hard_limit_width: null
+hard_limit_height: null

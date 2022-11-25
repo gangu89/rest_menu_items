@@ -1,0 +1,21 @@
+uuid: 77ff36e8-a5c4-4993-9f4c-e351fb9bc198
+langcode: en
+status: true
+dependencies:
+  module:
+    - options
+    - paragraphs
+id: paragraph.field_getcategorymaster
+field_name: field_getcategorymaster
+entity_type: paragraph
+type: list_string
+settings:
+  allowed_values: {  }
+  allowed_values_function: 'example_allowed_values_function'
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

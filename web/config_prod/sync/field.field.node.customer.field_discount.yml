@@ -1,0 +1,23 @@
+uuid: da0e1c03-33e2-47af-a3c8-1d7e666ba842
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_discount
+    - node.type.customer
+id: node.customer.field_discount
+field_name: field_discount
+entity_type: node
+bundle: customer
+label: Discount
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

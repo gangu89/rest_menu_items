@@ -1,0 +1,37 @@
+uuid: ab7f79d2-6ad9-43bc-b6d7-bd92af8295d9
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_track
+    - node.type.album_media
+    - paragraphs.paragraphs_type.track
+  module:
+    - entity_reference_revisions
+id: node.album_media.field_track
+field_name: field_track
+entity_type: node
+bundle: album_media
+label: Track
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      track: track
+    negate: 0
+    target_bundles_drag_drop:
+      banner:
+        weight: 4
+        enabled: false
+      tile:
+        weight: 5
+        enabled: false
+      track:
+        weight: 6
+        enabled: true
+field_type: entity_reference_revisions

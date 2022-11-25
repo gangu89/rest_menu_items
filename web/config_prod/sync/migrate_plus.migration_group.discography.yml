@@ -1,0 +1,10 @@
+uuid: 28c6cf3b-8942-4356-b297-0a618861ed0e
+langcode: en
+status: true
+dependencies: {  }
+id: discography
+label: discography
+description: ''
+source_type: null
+module: null
+shared_configuration: null

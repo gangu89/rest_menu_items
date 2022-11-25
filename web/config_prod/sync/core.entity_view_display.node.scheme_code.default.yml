@@ -1,0 +1,37 @@
+uuid: fe8fd6da-3ea4-4875-b590-b6006a14e4ea
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.scheme_code.body
+    - field.field.node.scheme_code.field_scheme_cat
+    - node.type.scheme_code
+  module:
+    - options
+    - text
+    - user
+id: node.scheme_code.default
+targetEntityType: node
+bundle: scheme_code
+mode: default
+content:
+  body:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 101
+    region: content
+  field_scheme_cat:
+    type: list_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 102
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden: {  }

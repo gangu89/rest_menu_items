@@ -1,0 +1,21 @@
+uuid: 9d3e4f2e-4a4b-4527-9d43-6908a34d3d59
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_scheme_cat
+    - node.type.scheme_code
+  module:
+    - options
+id: node.scheme_code.field_scheme_cat
+field_name: field_scheme_cat
+entity_type: node
+bundle: scheme_code
+label: 'scheme cat'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

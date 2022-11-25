@@ -1,0 +1,30 @@
+uuid: bd92863c-cb5a-44c1-b2a4-a97184114dc6
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.media.media_library
+    - field.field.media.mobile_media.field_media_image_1
+    - image.style.crop_image_style_16_9
+    - media.type.mobile_media
+  module:
+    - image
+id: media.mobile_media.media_library
+targetEntityType: media
+bundle: mobile_media
+mode: media_library
+content:
+  thumbnail:
+    type: image
+    label: hidden
+    settings:
+      image_link: ''
+      image_style: crop_image_style_16_9
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  created: true
+  field_media_image_1: true
+  name: true
+  uid: true

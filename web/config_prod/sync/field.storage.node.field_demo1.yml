@@ -1,0 +1,21 @@
+uuid: 651d38bf-e914-4901-903d-a6800ef330d0
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - options
+id: node.field_demo1
+field_name: field_demo1
+entity_type: node
+type: list_string
+settings:
+  allowed_values: {  }
+  allowed_values_function: example_allowed_values
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

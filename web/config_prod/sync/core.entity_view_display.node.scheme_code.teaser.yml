@@ -1,0 +1,32 @@
+uuid: 86bc7556-91e3-4516-82f4-fdfb997e7594
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.scheme_code.body
+    - field.field.node.scheme_code.field_scheme_cat
+    - node.type.scheme_code
+  module:
+    - text
+    - user
+id: node.scheme_code.teaser
+targetEntityType: node
+bundle: scheme_code
+mode: teaser
+content:
+  body:
+    type: text_summary_or_trimmed
+    label: hidden
+    settings:
+      trim_length: 600
+    third_party_settings: {  }
+    weight: 101
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  field_scheme_cat: true

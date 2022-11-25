@@ -1,0 +1,21 @@
+uuid: 0ab48fc1-cc74-4076-8504-fa6dc6695002
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - options
+id: node.field_alignment
+field_name: field_alignment
+entity_type: node
+type: list_string
+settings:
+  allowed_values: {  }
+  allowed_values_function: example_allowed_values_function
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

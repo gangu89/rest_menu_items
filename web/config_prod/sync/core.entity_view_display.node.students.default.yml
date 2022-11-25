@@ -1,0 +1,78 @@
+uuid: f6aefce2-9919-46e5-ac54-7328adba51df
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.students.field_address
+    - field.field.node.students.field_demo1
+    - field.field.node.students.field_demo_details
+    - field.field.node.students.field_image1
+    - field.field.node.students.field_image2
+    - field.field.node.students.field_last_name
+    - node.type.students
+  module:
+    - entity_reference_revisions
+    - image
+    - options
+    - text
+    - user
+id: node.students.default
+targetEntityType: node
+bundle: students
+mode: default
+content:
+  field_address:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 102
+    region: content
+  field_demo1:
+    type: list_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 107
+    region: content
+  field_demo_details:
+    type: entity_reference_revisions_entity_view
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 106
+    region: content
+  field_image1:
+    type: image
+    label: above
+    settings:
+      image_link: ''
+      image_style: ''
+    third_party_settings: {  }
+    weight: 104
+    region: content
+  field_image2:
+    type: entity_reference_entity_view
+    label: above
+    settings:
+      view_mode: media_library
+      link: false
+    third_party_settings: {  }
+    weight: 105
+    region: content
+  field_last_name:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 101
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden: {  }

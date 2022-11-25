@@ -1,0 +1,40 @@
+uuid: ebbbe251-272a-43b6-bc80-33000034054f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_list_fo_scheme_details
+    - node.type.article
+    - paragraphs.paragraphs_type.list_of_scheme
+  module:
+    - entity_reference_revisions
+id: node.article.field_list_fo_scheme_details
+field_name: field_list_fo_scheme_details
+entity_type: node
+bundle: article
+label: 'List fo scheme details'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      list_of_scheme: list_of_scheme
+    negate: 0
+    target_bundles_drag_drop:
+      banner:
+        weight: 5
+        enabled: false
+      list_of_scheme:
+        weight: 6
+        enabled: true
+      tile:
+        weight: 7
+        enabled: false
+      track:
+        weight: 8
+        enabled: false
+field_type: entity_reference_revisions

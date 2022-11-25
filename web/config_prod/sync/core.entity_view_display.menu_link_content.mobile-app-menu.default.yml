@@ -1,0 +1,27 @@
+uuid: 89cc05ad-4338-4944-8df4-857efeb39542
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.menu_link_content.mobile-app-menu.field_description
+    - system.menu.mobile-app-menu
+  module:
+    - text
+id: menu_link_content.mobile-app-menu.default
+targetEntityType: menu_link_content
+bundle: mobile-app-menu
+mode: default
+content:
+  children:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_description:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 2
+    region: content
+hidden: {  }

@@ -1,0 +1,18 @@
+uuid: c426fd33-3f7f-4693-93d3-975e13eb2172
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus:
+      - main
+    parent: 'main:'
+name: 'Album media'
+type: album_media
+description: ''
+help: ''
+new_revision: true
+preview_mode: 1
+display_submitted: false

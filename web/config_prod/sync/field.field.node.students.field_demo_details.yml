@@ -1,0 +1,37 @@
+uuid: d69ee330-3316-455e-9df7-d66da67ced78
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_demo_details
+    - node.type.students
+    - paragraphs.paragraphs_type.banner
+  module:
+    - entity_reference_revisions
+id: node.students.field_demo_details
+field_name: field_demo_details
+entity_type: node
+bundle: students
+label: 'demo details'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      banner: banner
+    negate: 0
+    target_bundles_drag_drop:
+      banner:
+        weight: 4
+        enabled: true
+      tile:
+        weight: 5
+        enabled: false
+      track:
+        weight: 6
+        enabled: false
+field_type: entity_reference_revisions

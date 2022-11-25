@@ -1,0 +1,33 @@
+uuid: 4f11f012-3933-4a04-be39-07f509552ddf
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - migrate_discography
+_core:
+  default_config_hash: OIDltei0SrIiOIAc65btJ5hO4QDUi6IbluLPhlQugVc
+id: track_paragraphs
+class: null
+field_plugin_method: null
+cck_plugin_method: null
+migration_tags: null
+migration_group: discography
+label: 'Track Paragraphs'
+source:
+  plugin: csv
+  path: modules/custom/migrate_discography/data/album_tracks.csv
+  header_row_count: 1
+  ids:
+    - unique_id
+process:
+  field_title: track_title
+  field_link:
+    plugin: urlencode
+    source: track_url
+destination:
+  plugin: 'entity_reference_revisions:paragraph'
+  default_bundle: track
+migration_dependencies:
+  required: {  }
+  optional: {  }

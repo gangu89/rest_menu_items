@@ -1,0 +1,17 @@
+uuid: d55f58b4-aeea-449e-9071-d0a2346a8f3d
+langcode: en
+status: true
+dependencies: {  }
+name: crop_16_9
+label: 'crop 16:9'
+display: modal
+display_configuration:
+  width: '650'
+  height: '500'
+  link_text: 'Select entities'
+  auto_open: false
+selection_display: no_display
+selection_display_configuration: {  }
+widget_selector: tabs
+widget_selector_configuration: {  }
+widgets: {  }

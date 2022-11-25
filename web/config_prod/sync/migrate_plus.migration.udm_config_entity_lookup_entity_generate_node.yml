@@ -1,0 +1,78 @@
+uuid: 0526fb21-a39b-4f07-8975-7ac5837d13e0
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - ud_migrations_config_entity_lookup_entity_generate
+_core:
+  default_config_hash: uHD_lqC3ogE5IWVNM0ELpH0bGIRC5cfzNDHlY5-qBF4
+id: udm_config_entity_lookup_entity_generate_node
+class: null
+field_plugin_method: null
+cck_plugin_method: null
+migration_tags:
+  - 'UD Config entity_lookup entity_generate'
+  - 'UD Example'
+migration_group: default
+label: 'UD Config entity_lookup and entity_generate plugins example'
+source:
+  plugin: url
+  data_fetcher_plugin: file
+  data_parser_plugin: json
+  urls:
+    - modules/custom/ud_migrations/ud_migrations_config_entity_lookup_entity_generate/sources/udm_data.json
+  item_selector: /data/udm_nodes
+  fields:
+    -
+      name: src_unique_id
+      label: 'Unique ID'
+      selector: unique_id
+    -
+      name: src_thoughtful_title
+      label: Title
+      selector: thoughtful_title
+    -
+      name: src_creative_author
+      label: Author
+      selector: creative_author
+    -
+      name: src_fruit_list
+      label: Fruits
+      selector: fruit_list
+  ids:
+    src_unique_id:
+      type: integer
+process:
+  title: src_thoughtful_title
+  uid:
+    -
+      plugin: entity_lookup
+      entity_type: user
+      value_key: name
+      source: src_creative_author
+    -
+      plugin: default_value
+      default_value: 1
+  field_tags:
+    -
+      plugin: skip_on_empty
+      source: src_fruit_list
+      method: process
+      message: 'Row does not contain fruit_list.'
+    -
+      plugin: explode
+      delimiter: ','
+    -
+      plugin: callback
+      callable: trim
+    -
+      plugin: entity_generate
+      entity_type: taxonomy_term
+      value_key: name
+      bundle_key: vid
+      bundle: tags
+destination:
+  plugin: 'entity:node'
+  default_bundle: article
+migration_dependencies: null

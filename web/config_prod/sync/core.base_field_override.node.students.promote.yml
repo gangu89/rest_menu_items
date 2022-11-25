@@ -1,0 +1,22 @@
+uuid: 6b1c2114-47e4-4424-8797-ac61b7b2d5a7
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.students
+id: node.students.promote
+field_name: promote
+entity_type: node
+bundle: students
+label: 'Promoted to front page'
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

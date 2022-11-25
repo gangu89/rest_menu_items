@@ -1,0 +1,21 @@
+uuid: b86babe1-a1d9-4dad-9b34-95a8c5b01e8a
+langcode: en
+status: true
+dependencies:
+  module:
+    - options
+    - paragraphs
+id: paragraph.field_getplanoptions
+field_name: field_getplanoptions
+entity_type: paragraph
+type: list_string
+settings:
+  allowed_values: {  }
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

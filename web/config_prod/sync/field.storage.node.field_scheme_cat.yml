@@ -1,0 +1,21 @@
+uuid: de65a360-ffeb-4ac6-9113-25acea1bf063
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - options
+id: node.field_scheme_cat
+field_name: field_scheme_cat
+entity_type: node
+type: list_string
+settings:
+  allowed_values: {  }
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
