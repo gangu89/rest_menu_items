@@ -1,11 +1,11 @@
 <?php return array(
     'root' => array(
-        'pretty_version' => '1.0.0+no-version-set',
-        'version' => '1.0.0.0',
+        'pretty_version' => 'dev-3039979-menu-items-extras-19',
+        'version' => 'dev-3039979-menu-items-extras-19',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => NULL,
+        'reference' => '8bf050d0fdf1db2b6ec5bc7a04c386505a38f1ff',
         'name' => 'drupal/recommended-project',
         'dev' => true,
     ),
@@ -581,12 +581,12 @@
             'dev_requirement' => false,
         ),
         'drupal/recommended-project' => array(
-            'pretty_version' => '1.0.0+no-version-set',
-            'version' => '1.0.0.0',
+            'pretty_version' => 'dev-3039979-menu-items-extras-19',
+            'version' => 'dev-3039979-menu-items-extras-19',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => NULL,
+            'reference' => '8bf050d0fdf1db2b6ec5bc7a04c386505a38f1ff',
             'dev_requirement' => false,
         ),
         'drupal/rest_menu_items' => array(
