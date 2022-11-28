@@ -106,7 +106,6 @@ class CSV extends SourcePluginBase implements ConfigurableInterface {
     }
     // IDs are required.
     if (empty($this->configuration['ids']) || !is_array($this->configuration['ids'])) {
-    //  dsm($this->configuration['ids']);
       throw new \InvalidArgumentException('You must declare "ids" as a unique array of fields in your source settings.');
     }
     // IDs must be an array of strings.

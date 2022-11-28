@@ -36,7 +36,7 @@
         "drupal/migrate_source_csv": "^3.5",
         "drupal/migrate_tools": "^6.0",
         "drupal/paragraphs": "^1.14",
-        "drupal/rest_menu_items": "3.0.x-dev@dev",
+        "drupal/rest_menu_items": "^3.0",
         "drupal/rest_views": "^2.0",
         "drupal/restui": "^1.20",
         "drupal/upgrade_status": "^3.14",
@@ -109,7 +109,8 @@
         "enable-patching": true,
         "patches": {
             "drupal/rest_menu_items": {
-                "Menu Items Extras fields also returned by the API": "patches/3039979-menu-items-extras-18.patch"
+                "Menu Items Extras fields also returned by the API": "patches/3039979-menu-items-extras-15.patch",
+                "Menu Items Extras new updated also returned by the API": "patches/3039979-menu-items-extras-16.patch"
             }
          }
     }
