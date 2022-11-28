@@ -1,0 +1,13 @@
+name: 'Migrate queue importer test'
+type: module
+description: 'Provides configs for Migrate queue importer tests.'
+package: Testing
+core_version_requirement: ^8.8 || ^9
+dependencies:
+  - drupal:migrate
+  - migrate_plus:migrate_plus
+
+# Information added by Drupal.org packaging script on 2021-11-13
+version: '2.0.0'
+project: 'migrate_queue_importer'
+datestamp: 1636769216

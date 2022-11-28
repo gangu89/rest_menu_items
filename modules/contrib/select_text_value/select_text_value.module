@@ -1,0 +1,21 @@
+<?php
+
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Url;
+
+/**
+ * Implements hook_help().
+ */
+function select_text_value_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    case 'help.page.select_text_value':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('This module provides additional widgets for Text fields. For more information, see the online documentation for the <a href=":url">Select Text Value</a> module.', [
+        ':url' => 'https://www.drupal.org/project/select_text_value',
+        ':field_help' => Url::fromRoute('help.page', ['name' => 'field']),
+      ]) . '</p>';
+
+      return $output;
+  }
+}

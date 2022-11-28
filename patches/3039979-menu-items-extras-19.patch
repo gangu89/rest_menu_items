@@ -1,0 +1,104 @@
+diff --git a/src/Plugin/rest/resource/RestMenuItemsResource.php b/src/Plugin/rest/resource/RestMenuItemsResource.php
+index e513133..2aeeb27 100644
+--- a/src/Plugin/rest/resource/RestMenuItemsResource.php
++++ b/src/Plugin/rest/resource/RestMenuItemsResource.php
+@@ -6,11 +6,14 @@ use Drupal\Core\Cache\CacheableResponseInterface;
+ use Drupal\Core\Config\ConfigFactoryInterface;
+ use Drupal\Core\Entity\EntityTypeManagerInterface;
+ use Drupal\Core\Extension\ModuleHandlerInterface;
++use Drupal\Core\File\FileUrlGeneratorInterface;
+ use Drupal\Core\Menu\MenuTreeParameters;
+ use Drupal\Core\Menu\MenuLinkInterface;
++use Drupal\field\FieldConfigInterface;
++use Drupal\file\Entity\File;
+ use Drupal\path_alias\AliasManagerInterface;
+ use Drupal\rest\Plugin\ResourceBase;
+-use Drupal\rest\ResourceResponse;
++use Drupal\rest\ModifiedResourceResponse;
+ use Drupal\Core\Url;
+ use Symfony\Component\DependencyInjection\ContainerInterface;
+ use Symfony\Component\HttpKernel\Exception\HttpException;
+@@ -57,6 +60,20 @@ class RestMenuItemsResource extends ResourceBase {
+    */
+   protected $moduleHandler;
+ 
+   /**
+    * A list of menu items.
+    *
+@@ -81,13 +98,15 @@ class RestMenuItemsResource extends ResourceBase {
+   /**
+    * {@inheritdoc}
+    */
+-  public function __construct(array $configuration, $plugin_id, $plugin_definition, array $serializer_formats, LoggerInterface $logger, AliasManagerInterface $alias_manager, ConfigFactoryInterface $config_factory, EntityTypeManagerInterface $entityTypeManager, ModuleHandlerInterface $moduleHandler) {
++  public function __construct(array $configuration, $plugin_id, $plugin_definition, array $serializer_formats, LoggerInterface $logger, AliasManagerInterface $alias_manager, ConfigFactoryInterface $config_factory, EntityTypeManagerInterface $entityTypeManager, ModuleHandlerInterface $moduleHandler, FileUrlGeneratorInterface $file_url_generator) {
+     parent::__construct($configuration, $plugin_id, $plugin_definition, $serializer_formats, $logger);
+ 
+     $this->aliasManager = $alias_manager;
+     $this->configFactory = $config_factory;
+     $this->entityTypeManager = $entityTypeManager;
+     $this->moduleHandler = $moduleHandler;
++    $this->menuLinkContentStorage = $entityTypeManager->getStorage('menu_link_content');
++    $this->fileUrlGenerator = $file_url_generator;
+   }
+ 
+   /**
+@@ -95,7 +114,7 @@ class RestMenuItemsResource extends ResourceBase {
+    */
+   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
+     return new static($configuration, $plugin_id, $plugin_definition, $container->getParameter('serializer.formats'), $container->get('logger.factory')
+-      ->get('rest'), $container->get('path_alias.manager'), $container->get('config.factory'), $container->get('entity_type.manager'), $container->get('module_handler'));
++      ->get('rest'), $container->get('path_alias.manager'), $container->get('config.factory'), $container->get('entity_type.manager'), $container->get('module_handler'), $container->get('file_url_generator'));
+   }
+ 
+   /**
+@@ -106,7 +125,7 @@ class RestMenuItemsResource extends ResourceBase {
+    * @param string|null $menu_name
+    *   The menu name.
+    *
+-   * @return \Drupal\rest\ResourceResponse
++   * @return \Drupal\rest\ModifiedResourceResponse
+    *   The response containing a list of bundle names.
+    *
+    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+@@ -135,7 +154,7 @@ class RestMenuItemsResource extends ResourceBase {
+ 
+       // Return if the menu does not exist or has no entries.
+       if (empty($tree)) {
+-        $response = new ResourceResponse($tree);
++        $response = new ModifiedResourceResponse($tree);
+ 
+         if ($response instanceof CacheableResponseInterface) {
+           $response->addCacheableDependency(new RestMenuItemsCacheableDependency($menu_name, $this->minDepth, $this->maxDepth));
+@@ -159,7 +178,7 @@ class RestMenuItemsResource extends ResourceBase {
+ 
+       // Return if the menu has no entries.
+       if (empty($menu['#items'])) {
+-        return new ResourceResponse([]);
++        return new ModifiedResourceResponse([]);
+       }
+ 
+       $this->getMenuItems($menu['#items'], $this->menuItems);
+@@ -168,7 +187,7 @@ class RestMenuItemsResource extends ResourceBase {
+       $this->moduleHandler->alter('rest_menu_items_output', $this->menuItems);
+ 
+       // Return response.
+-      $response = new ResourceResponse(array_values($this->menuItems));
++      $response = new ModifiedResourceResponse(array_values($this->menuItems));
+ 
+       // Configure caching for minDepth and maxDepth parameters.
+       if ($response instanceof CacheableResponseInterface) {
+@@ -212,6 +231,8 @@ class RestMenuItemsResource extends ResourceBase {
+         }
+       }
+ 
++      $this->checkContentFields($org_link, $newValue);
++
+       if (!empty($item_value['below'])) {
+         $newValue['below'] = [];
+         $this->getMenuItems($item_value['below'], $newValue['below']);
+@@ -435,4 +456,54 @@ class RestMenuItemsResource extends ResourceBase {
+     }
+   }
+ 
+ }
+

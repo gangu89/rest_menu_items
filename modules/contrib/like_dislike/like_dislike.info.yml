@@ -1,0 +1,10 @@
+name: Like/Dislike
+type: module
+description: Add a Like and Dislike field on every entity (like content, comments etc) and Get instant statistics.
+core_version_requirement: ^8.8 || ^9
+package: Content
+
+# Information added by Drupal.org packaging script on 2022-01-19
+version: '2.1.0'
+project: 'like_dislike'
+datestamp: 1642588687

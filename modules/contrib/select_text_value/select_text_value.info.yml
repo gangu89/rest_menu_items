@@ -1,0 +1,10 @@
+name: 'Select Text Value'
+type: module
+description: 'Widget for text fields to offer pre-define values for selection'
+core: 8.x
+core_version_requirement: ^8 || ^9
+
+# Information added by Drupal.org packaging script on 2021-07-13
+version: '8.x-1.2'
+project: 'select_text_value'
+datestamp: 1626210684

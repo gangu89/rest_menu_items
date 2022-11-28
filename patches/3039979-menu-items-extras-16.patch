@@ -1,0 +1,115 @@
+diff --git a/src/Plugin/rest/resource/RestMenuItemsResource.php b/src/Plugin/rest/resource/RestMenuItemsResource.php
+index cb36bc7..0fcf7d1 100644
+--- a/src/Plugin/rest/resource/RestMenuItemsResource.php
++++ b/src/Plugin/rest/resource/RestMenuItemsResource.php
+@@ -7,6 +7,7 @@ use Drupal\Core\Config\ConfigFactoryInterface;
+ use Drupal\Core\Entity\EntityTypeManagerInterface;
+ use Drupal\Core\Menu\MenuTreeParameters;
+ use Drupal\Core\Menu\MenuLinkInterface;
++use Drupal\field\FieldConfigInterface;
+ use Drupal\path_alias\AliasManagerInterface;
+ use Drupal\rest\Plugin\ResourceBase;
+ use Drupal\rest\ResourceResponse;
+@@ -14,6 +15,8 @@ use Drupal\Core\Url;
+ use Symfony\Component\DependencyInjection\ContainerInterface;
+ use Symfony\Component\HttpKernel\Exception\HttpException;
+ use Psr\Log\LoggerInterface;
++use Drupal\file\Entity\File;
++use Drupal\rest\ModifiedResourceResponse;
+ 
+ /**
+  * Provides a resource to get bundles by entity.
+@@ -70,6 +73,13 @@ class RestMenuItemsResource extends ResourceBase {
+    */
+   protected $minDepth = 1;
+ 
++  /**
++   * MenuLinkContent Entity storage.
++   *
++   * @var \Drupal\Core\Entity\EntityStorageInterface
++   */
++  protected $menuLinkContentStorage;
++
+   /**
+    * {@inheritdoc}
+    */
+@@ -79,6 +89,7 @@ class RestMenuItemsResource extends ResourceBase {
+     $this->aliasManager = $alias_manager;
+     $this->configFactory = $config_factory;
+     $this->entityTypeManager = $entityTypeManager;
++    $this->menuLinkContentStorage = $entityTypeManager->getStorage('menu_link_content');
+   }
+ 
+   /**
+@@ -155,7 +166,7 @@ class RestMenuItemsResource extends ResourceBase {
+       $this->getMenuItems($menu['#items'], $this->menuItems);
+ 
+       // Return response.
+-      $response = new ResourceResponse(array_values($this->menuItems));
++      $response = new ModifiedResourceResponse(array_values($this->menuItems));
+ 
+       // Configure caching for minDepth and maxDepth parameters.
+       if ($response instanceof CacheableResponseInterface) {
+@@ -199,6 +210,8 @@ class RestMenuItemsResource extends ResourceBase {
+         }
+       }
+ 
++      $this->checkContentFields($org_link, $newValue);
++
+       if (!empty($item_value['below'])) {
+         $newValue['below'] = [];
+         $this->getMenuItems($item_value['below'], $newValue['below']);
+@@ -422,4 +435,53 @@ class RestMenuItemsResource extends ResourceBase {
+     }
+   }
+ 
++
++  /**
++   * Check if there are any additional fields added to MenuLink.
++   *
++   * @param \Drupal\Core\Menu\MenuLinkInterface $menu_link
++   * @param array $newValue
++   */
++  protected function checkContentFields(MenuLinkInterface $menu_link, array &$newValue) {
++    $plugin_definition = $menu_link->getPluginDefinition();
++    if (!empty($plugin_definition['metadata'])) {
++      $id = $plugin_definition['metadata']['entity_id'];
++      $menu_link_content = $this->menuLinkContentStorage->load($id);
++
++      if ($menu_link_content) {
++        $field_definitions = $menu_link_content->getFieldDefinitions();
++
++        foreach ($field_definitions as $field_definition) {
++          // Ignore BaseFields.
++          if ($field_definition instanceof FieldConfigInterface) {
++            $field_name = $field_definition->getName();
++            if (
++              $field_definition->getType() == 'entity_reference' ||
++              $field_definition->getType() == 'entity_reference_revisions'
++              || $field_definition->getSetting('target_type') == 'taxonomy_term') {
++              $field_value = $menu_link_content->get($field_name)->entity;
++            }
++            elseif ($field_definition->getType() == 'image') {
++              foreach ($menu_link_content->get($field_name)->getValue() as $fids){
++                $file = File::load($fids['target_id']);
++                $image_urls[]['value'] = Url::fromUri(file_create_url($file->getFileUri()))->toString();
++              }
++              $field_value = $image_urls;
++            }
++            else {
++              $field_value = $menu_link_content->get($field_name)->getValue();
++            }// @todo: add proper normalizing.
++            // @todo: render the values of the fields, as simply the referenced
++            //  entity ID doesn't do much for the client using the endpoint.
++            $normalized_value = NULL;
++            if (!empty($field_value)) {
++              $normalized_value = $field_value;
++            }
++            $newValue[$field_name] = $normalized_value;
++          }
++        }
++      }
++    }
++  }
++
+ }
